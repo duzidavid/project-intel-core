@@ -1,7 +1,8 @@
+import { FileScanner } from '@core/fs/FileScanner';
+import { ProjectContext,AnalysisSignal } from '@core/model';
+
 import { AnalysisInput } from './AnalysisInput';
-import { FileScanner } from '../fs/FileScanner';
-import { ProjectContext } from '../model/ProjectContext';
-import { AnalysisSignal } from '../model/AnalysisSignal';
+
 
 import { LanguageAnalyzer } from '../analyzers/LanguageAnalyzer';
 

@@ -7,8 +7,13 @@
 
     "rootDir": "src",
     "outDir": "dist",
-
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["src/*"],
+      "@tests/*": ["tests/*"]
+    },
     "strict": true,
+
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 
