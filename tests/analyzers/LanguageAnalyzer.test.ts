@@ -1,14 +1,15 @@
 import { describe, it, expect } from 'vitest';
 import { LanguageAnalyzer } from '../../src/analyzers/LanguageAnalyzer';
+import { file } from '../helpers/fileEntry';
 
 describe('LanguageAnalyzer', () => {
     it('detects languages based on file extensions', () => {
         const analyzer = new LanguageAnalyzer();
 
         const result = analyzer.analyze([
-            { relativePath: 'src/index.ts', absolutePath: '', size: 10, content: '' },
-            { relativePath: 'README.md', absolutePath: '', size: 10, content: '' },
-            { relativePath: 'config.json', absolutePath: '', size: 10, content: '' }
+            file('src/index.ts'),
+            file('README.md'),
+            file('config.json')
         ]);
 
         expect(result.signals).toContain('language:TypeScript');
