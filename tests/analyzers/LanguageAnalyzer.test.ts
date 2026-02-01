@@ -12,8 +12,8 @@ describe('LanguageAnalyzer', () => {
             file('config.json')
         ]);
 
-        expect(result.signals).toContain('language:TypeScript');
-        expect(result.signals).toContain('language:Markdown');
-        expect(result.signals).toContain('language:JSON');
+        expect(result.signals).toContainEqual({ kind: 'language', value: 'TypeScript' });
+        expect(result.signals).toContainEqual({ kind: 'language', value: 'Markdown' });
+        expect(result.signals).toContainEqual({ kind: 'language', value: 'JSON' });
     });
 });

@@ -1,3 +1,6 @@
+import { AnalysisSignal } from './AnalysisSignal';
+
+
 export type ProjectContext = {
     meta: {
         analyzedAt: string;
@@ -18,7 +21,7 @@ export type ProjectContext = {
      * Detected high-level project signals
      * (frameworks, languages, tooling, etc.)
      */
-    signals: string[];
+    signals: AnalysisSignal[];
 
     /**
      * Detected risks or warnings.

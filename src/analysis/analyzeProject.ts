@@ -1,6 +1,8 @@
 import { AnalysisInput } from './AnalysisInput';
 import { FileScanner } from '../fs/FileScanner';
 import { ProjectContext } from '../model/ProjectContext';
+import { AnalysisSignal } from '../model/AnalysisSignal';
+
 import { LanguageAnalyzer } from '../analyzers/LanguageAnalyzer';
 
 export function analyzeProject(input: AnalysisInput): ProjectContext {
@@ -11,7 +13,7 @@ export function analyzeProject(input: AnalysisInput): ProjectContext {
         new LanguageAnalyzer()
     ];
 
-    const signals: string[] = [];
+    const signals: AnalysisSignal[] = [];
     const risks: string[] = [];
 
     for (const analyzer of analyzers) {

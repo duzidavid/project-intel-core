@@ -1,7 +1,8 @@
 import { FileEntry } from '../fs/FileEntry';
+import { AnalysisSignal } from '../model/AnalysisSignal';
 
 export type AnalyzerResult = {
-    signals: string[];
+    signals: AnalysisSignal[];
     risks: string[];
 };
 

@@ -1,4 +1,5 @@
 import { Analyzer } from './Analyzer';
+import { AnalysisSignal } from '../model/AnalysisSignal';
 import { FileEntry } from '../fs/FileEntry';
 
 const EXTENSION_TO_LANGUAGE: Record<string, string> = {
@@ -12,22 +13,19 @@ const EXTENSION_TO_LANGUAGE: Record<string, string> = {
 
 export class LanguageAnalyzer implements Analyzer {
     analyze(files: FileEntry[]) {
-        const languages = new Set<string>();
+        const found = new Set<string>();
 
         for (const file of files) {
-            const ext = file.relativePath.substring(
-                file.relativePath.lastIndexOf('.')
-            );
-
+            const ext = file.relativePath.slice(file.relativePath.lastIndexOf('.'));
             const lang = EXTENSION_TO_LANGUAGE[ext];
-            if (lang) {
-                languages.add(lang);
-            }
+            if (lang) found.add(lang);
         }
 
-        return {
-            signals: Array.from(languages).map(l => `language:${l}`),
-            risks: []
-        };
+        const signals: AnalysisSignal[] = Array.from(found).map(value => ({
+            kind: 'language',
+            value
+        }));
+
+        return { signals, risks: [] };
     }
 }
