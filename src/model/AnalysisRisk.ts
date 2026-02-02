@@ -1,9 +1,19 @@
-export type RiskLevel = 'low' | 'medium' | 'high';
+export type RiskSeverity = 'low' | 'medium' | 'high' | 'critical';
 
 export interface AnalysisRisk {
-    level: RiskLevel;
+    category: 'security' | 'maintainability' | 'performance' | 'legal' | 'unknown';
+
+    severity: RiskSeverity;
+
+    /** Stable identifier */
     code: string;
-    message: string;
-    source: string;
-    relatedSignals?: string[];
+
+    /** Human-readable description */
+    description: string;
+
+    /** Signals that contributed to this risk */
+    relatedSignals: string[];
+
+    /** Optional context */
+    meta?: Record<string, unknown>;
 }

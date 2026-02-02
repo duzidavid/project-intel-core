@@ -7,5 +7,6 @@ export type AnalyzerResult = {
 };
 
 export interface Analyzer {
+    readonly name: string;
     analyze(files: FileEntry[]): AnalyzerResult;
 }
