@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { AnalysisLimits } from '../analysis/AnalysisLimits';
+import { AnalysisLimits } from '../analysis';
 import { FileEntry } from './FileEntry';
 
 export class FileScanner {

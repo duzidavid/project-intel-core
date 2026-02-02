@@ -1,4 +1,6 @@
 import { AnalysisSignal } from './AnalysisSignal';
+import { AnalysisRisk } from './AnalysisRisk';
+import { FileSummary } from './FileSummary';
 
 
 export type ProjectContext = {
@@ -12,10 +14,7 @@ export type ProjectContext = {
      * List of analyzed files (metadata only).
      * File contents are NOT exposed outside the core.
      */
-    files: {
-        path: string;
-        size: number;
-    }[];
+    files: FileSummary[];
 
     /**
      * Detected high-level project signals
@@ -26,5 +25,5 @@ export type ProjectContext = {
     /**
      * Detected risks or warnings.
      */
-    risks: string[];
+    risks: AnalysisRisk[];
 };

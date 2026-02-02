@@ -1,10 +1,11 @@
-import { FileScanner } from '@core/fs/FileScanner';
-import { ProjectContext,AnalysisSignal } from '@core/model';
+import { FileScanner } from '../fs';
+import { ProjectContext,AnalysisSignal, AnalysisRisk } from '../model';
+import { LanguageAnalyzer } from '../analyzers';
 
 import { AnalysisInput } from './AnalysisInput';
 
 
-import { LanguageAnalyzer } from '../analyzers/LanguageAnalyzer';
+
 
 export function analyzeProject(input: AnalysisInput): ProjectContext {
     const scanner = new FileScanner(input.rootPath, input.limits);
@@ -15,7 +16,7 @@ export function analyzeProject(input: AnalysisInput): ProjectContext {
     ];
 
     const signals: AnalysisSignal[] = [];
-    const risks: string[] = [];
+    const risks: AnalysisRisk[] = [];
 
     for (const analyzer of analyzers) {
         const result = analyzer.analyze(files);

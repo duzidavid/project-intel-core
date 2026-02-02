@@ -7,13 +7,13 @@
 
     "rootDir": "src",
     "outDir": "dist",
+
     "baseUrl": ".",
     "paths": {
-      "@core/*": ["src/*"],
-      "@tests/*": ["tests/*"]
+      "@core": ["src/index.ts"]
     },
-    "strict": true,
 
+    "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
 

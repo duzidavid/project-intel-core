@@ -3,7 +3,7 @@ import { LanguageAnalyzer } from '../../src/analyzers/LanguageAnalyzer';
 import { file } from '../helpers/fileEntry';
 
 describe('LanguageAnalyzer', () => {
-    it('detects languages based on file extensions', () => {
+    it('emits language signals for detected file extensions', () => {
         const analyzer = new LanguageAnalyzer();
 
         const result = analyzer.analyze([
@@ -12,8 +12,27 @@ describe('LanguageAnalyzer', () => {
             file('config.json')
         ]);
 
-        expect(result.signals).toContainEqual({ kind: 'language', value: 'TypeScript' });
-        expect(result.signals).toContainEqual({ kind: 'language', value: 'Markdown' });
-        expect(result.signals).toContainEqual({ kind: 'language', value: 'JSON' });
+        expect(result.signals).toEqual(
+            expect.arrayContaining([
+                {
+                    kind: 'language',
+                    value: 'TypeScript',
+                    source: 'LanguageAnalyzer',
+                    confidence: 1
+                },
+                {
+                    kind: 'language',
+                    value: 'Markdown',
+                    source: 'LanguageAnalyzer',
+                    confidence: 1
+                },
+                {
+                    kind: 'language',
+                    value: 'JSON',
+                    source: 'LanguageAnalyzer',
+                    confidence: 1
+                }
+            ])
+        );
     });
 });

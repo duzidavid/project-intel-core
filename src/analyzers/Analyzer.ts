@@ -1,9 +1,9 @@
-import { FileEntry } from '../fs/FileEntry';
-import { AnalysisSignal } from '../model/AnalysisSignal';
+import { FileEntry } from '../fs';
+import { AnalysisSignal, AnalysisRisk } from '../model';
 
 export type AnalyzerResult = {
     signals: AnalysisSignal[];
-    risks: string[];
+    risks: AnalysisRisk[];
 };
 
 export interface Analyzer {

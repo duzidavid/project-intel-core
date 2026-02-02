@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
+
 import { FileScanner } from '../../src/fs/FileScanner';
 
 const limits = {
