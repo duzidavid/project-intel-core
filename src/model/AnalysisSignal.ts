@@ -1,26 +1,26 @@
 export type SignalKind =
-    | 'language'
-    | 'framework'
-    | 'runtime'
-    | 'tooling'
-    | 'architecture'
-    | 'license'
-    | 'dependency'
-    | 'pattern'
-    | 'config';
+  | 'language'
+  | 'framework'
+  | 'runtime'
+  | 'tooling'
+  | 'architecture'
+  | 'license'
+  | 'dependency'
+  | 'pattern'
+  | 'config';
 
 export interface AnalysisSignal {
-    kind: SignalKind;
+  kind: SignalKind;
 
-    /** Stable identifier (machine-friendly) */
-    code: string;
+  /** Stable identifier (machine-friendly) */
+  code: string;
 
-    /** Human-readable value */
-    value: string;
+  /** Human-readable value */
+  value: string;
 
-    source: string;
-    confidence?: number;
+  source: string;
+  confidence?: number;
 
-    /** Optional extensibility point */
-    meta?: Record<string, unknown>;
+  /** Optional extensibility point */
+  meta?: Record<string, unknown>;
 }

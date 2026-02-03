@@ -1,1 +1,1 @@
-export {AnalysisLimits} from './AnalysisLimits'
+export { AnalysisLimits } from './AnalysisLimits';

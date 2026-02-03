@@ -13,12 +13,14 @@ This repository intentionally contains no AI, no UI, and no recommendations.
 ## Scope
 
 This project is:
+
 - a core analysis engine
 - deterministic and reproducible
 - designed to run locally, in CI/CD, or on servers
 - a reusable foundation for multiple higher-level products
 
 This project is not:
+
 - an AI assistant
 - a legal advisor
 - a UI application
