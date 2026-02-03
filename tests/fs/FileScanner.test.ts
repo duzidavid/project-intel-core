@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 
-import { FileScanner } from '../../src/fs/FileScanner';
+import { FileScanner } from '../../src/fs';
 
 const limits = {
     maxFiles: 10,

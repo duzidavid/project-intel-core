@@ -1,13 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { PackageJsonAnalyzer } from '../../src/analyzers';
-import { FileEntry } from '../../src/fs';
+import {file} from '../helpers/fileEntry';
 
-const file = (path: string, content = ''): FileEntry => ({
-    relativePath: path,
-    absolutePath: '',
-    size: content.length,
-    content
-});
+
 
 describe('PackageJsonAnalyzer', () => {
     it('extracts signals from package.json', () => {

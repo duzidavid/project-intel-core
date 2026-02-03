@@ -10,3 +10,8 @@ export interface Analyzer {
     readonly name: string;
     analyze(files: FileEntry[]): AnalyzerResult;
 }
+
+export interface SignalAnalyzer {
+    readonly name: string;
+    analyze(signals: AnalysisSignal[]): AnalysisRisk[];
+}

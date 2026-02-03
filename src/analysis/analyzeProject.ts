@@ -1,18 +1,19 @@
 import { FileScanner } from '../fs';
-import { ProjectContext,AnalysisSignal, AnalysisRisk } from '../model';
-import { LanguageAnalyzer } from '../analyzers';
+import { ProjectContext, AnalysisSignal, AnalysisRisk } from '../model';
+
+import { Analyzer, SignalAnalyzer,LanguageAnalyzer,PackageJsonAnalyzer,RiskMapperAnalyzer } from '../analyzers';
 
 import { AnalysisInput } from './AnalysisInput';
 
-
-
-
 export function analyzeProject(input: AnalysisInput): ProjectContext {
+    // ── Scan files ────────────────────────────────────────────────
     const scanner = new FileScanner(input.rootPath, input.limits);
     const files = scanner.scan();
 
-    const analyzers = [
-        new LanguageAnalyzer()
+    // ── Phase 1: file analyzers ───────────────────────────────────
+    const analyzers: Analyzer[] = [
+        new LanguageAnalyzer(),
+        new PackageJsonAnalyzer()
     ];
 
     const signals: AnalysisSignal[] = [];
@@ -24,6 +25,17 @@ export function analyzeProject(input: AnalysisInput): ProjectContext {
         risks.push(...result.risks);
     }
 
+    // ── Phase 2: signal analyzers ─────────────────────────────────
+    const signalAnalyzers: SignalAnalyzer[] = [
+        new RiskMapperAnalyzer()
+    ];
+
+    for (const analyzer of signalAnalyzers) {
+        const newRisks = analyzer.analyze(signals);
+        risks.push(...newRisks);
+    }
+
+    // ── Final context ─────────────────────────────────────────────
     return {
         meta: {
             analyzedAt: new Date().toISOString(),

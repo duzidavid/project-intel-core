@@ -1,14 +1,8 @@
 import { FileEntry } from '../../src/fs/FileEntry';
 
-export function file(
-    relativePath: string,
-    overrides?: Partial<FileEntry>
-): FileEntry {
-    return {
-        relativePath,
-        absolutePath: '',
-        size: 1,
-        content: '',
-        ...overrides
-    };
-}
+export const file = (path: string, content = ''): FileEntry => ({
+    relativePath: path,
+    absolutePath: path,
+    size: content.length,
+    content
+});

@@ -1,13 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { LanguageAnalyzer } from '../../src/analyzers/LanguageAnalyzer';
-import { FileEntry } from '../../src/fs/FileEntry';
+import { LanguageAnalyzer } from '../../src/analyzers';
+import {file} from '../helpers/fileEntry';
 
-const file = (path: string): FileEntry => ({
-    relativePath: path,
-    absolutePath: '',
-    size: 10,
-    content: ''
-});
+
 
 describe('LanguageAnalyzer', () => {
     it('emits language signals for detected file extensions', () => {
