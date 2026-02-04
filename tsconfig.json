@@ -1,17 +1,14 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
 
     "rootDir": "src",
     "outDir": "dist",
 
-    "baseUrl": ".",
-    "paths": {
-      "@core": ["src/index.ts"]
-    },
+    "declaration": true,
+    "declarationMap": true,
 
     "strict": true,
     "noUncheckedIndexedAccess": true,
