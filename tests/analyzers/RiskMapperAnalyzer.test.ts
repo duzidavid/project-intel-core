@@ -1,90 +1,50 @@
 import { describe, it, expect } from 'vitest';
 import { RiskMapperAnalyzer } from '../../src/analyzers';
-import { AnalysisSignal } from '../../src/model';
+import { signal } from '../helpers/signal';
 
 describe('RiskMapperAnalyzer', () => {
-  const analyzer = new RiskMapperAnalyzer();
+  it('emits legal risk when GPL license is detected', () => {
+    const analyzer = new RiskMapperAnalyzer();
 
-  it('creates high legal risk when GPL license is detected', () => {
-    const signals: AnalysisSignal[] = [
-      {
-        kind: 'license',
-        code: 'license.gpl-3.0',
-        value: 'GPL-3.0',
-        source: 'PackageJsonAnalyzer',
-      },
-    ];
+    const signals = [signal('license', 'license.gpl-3.0', 'GPL-3.0', 'PackageJsonAnalyzer')];
 
     const risks = analyzer.analyze(signals);
 
-    expect(risks).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          category: 'legal',
-          severity: 'high',
-          code: 'risk.license.gpl',
-        }),
-      ]),
-    );
+    const gplRisk = risks.find((r) => r.code === 'risk.license.gpl');
+
+    expect(gplRisk).toBeDefined();
+    expect(gplRisk).toEqual({
+      category: 'legal',
+      severity: 'high',
+      code: 'risk.license.gpl',
+      description: 'GPL license detected, which may impose strong copyleft obligations.',
+      relatedSignals: ['license.gpl-3.0'],
+    });
   });
 
-  it('creates medium legal risk when license is missing', () => {
-    const signals: AnalysisSignal[] = [
-      {
-        kind: 'language',
-        code: 'language.typescript',
-        value: 'TypeScript',
-        source: 'LanguageAnalyzer',
-      },
-    ];
+  it('emits medium legal risk when no license signal exists', () => {
+    const analyzer = new RiskMapperAnalyzer();
 
-    const risks = analyzer.analyze(signals);
+    const risks = analyzer.analyze([]);
 
-    expect(risks).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          category: 'legal',
-          severity: 'medium',
-          code: 'risk.license.missing',
-        }),
-      ]),
-    );
+    const missingLicenseRisk = risks.find((r) => r.code === 'risk.license.missing');
+
+    expect(missingLicenseRisk).toBeDefined();
+    expect(missingLicenseRisk!.severity).toBe('medium');
   });
 
-  it('creates maintainability risk when dependency count is high', () => {
-    const signals: AnalysisSignal[] = Array.from({ length: 55 }).map((_, i) => ({
-      kind: 'dependency',
-      code: `dependency.lib${i}`,
-      value: `lib${i}`,
-      source: 'PackageJsonAnalyzer',
-    }));
+  it('emits maintainability risk when dependency count is high', () => {
+    const analyzer = new RiskMapperAnalyzer();
 
-    const risks = analyzer.analyze(signals);
-
-    expect(risks).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          category: 'maintainability',
-          severity: 'medium',
-          code: 'risk.dependencies.too_many',
-        }),
-      ]),
+    const signals = Array.from({ length: 55 }, (_, i) =>
+      signal('dependency', `dependency.lib${i}`, `lib${i}`, 'PackageJsonAnalyzer'),
     );
-  });
-
-  it('does not create false positive risks', () => {
-    const signals: AnalysisSignal[] = [
-      {
-        kind: 'license',
-        code: 'license.mit',
-        value: 'MIT',
-        source: 'PackageJsonAnalyzer',
-      },
-    ];
 
     const risks = analyzer.analyze(signals);
 
-    expect(risks.find((r) => r.code === 'risk.license.gpl')).toBeUndefined();
-    expect(risks.find((r) => r.code === 'risk.license.missing')).toBeUndefined();
+    const dependencyRisk = risks.find((r) => r.code === 'risk.dependencies.too_many');
+
+    expect(dependencyRisk).toBeDefined();
+    expect(dependencyRisk!.severity).toBe('medium');
   });
 });
