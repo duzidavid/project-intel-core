@@ -23,4 +23,10 @@ export type AnalysisInput = {
    * Analysis will not start without explicit limits.
    */
   limits: AnalysisLimits;
+
+  /**
+   * Directory names to skip during scanning (e.g. node_modules, .git)
+   * Interpretation is product-level, core only respects the list.
+   */
+  ignoreDirs?: string[];
 };

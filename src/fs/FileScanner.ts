@@ -6,14 +6,16 @@ import { FileEntry } from './FileEntry';
 export class FileScanner {
   private readonly rootPath: string;
   private readonly limits: AnalysisLimits;
+  private readonly ignoreDirs: Set<string>;
 
   private fileCount = 0;
   private totalBytes = 0;
   private readonly startTime = Date.now();
 
-  constructor(rootPath: string, limits: AnalysisLimits) {
+  constructor(rootPath: string, limits: AnalysisLimits, ignoreDirs: string[] = []) {
     this.rootPath = fs.realpathSync(rootPath);
     this.limits = limits;
+    this.ignoreDirs = new Set(ignoreDirs);
   }
 
   scan(): FileEntry[] {
@@ -45,6 +47,10 @@ export class FileScanner {
       }
 
       if (entry.isDirectory()) {
+        if (this.ignoreDirs.has(entry.name)) {
+          continue;
+        }
+
         this.scanDirectory(real, depth + 1, results);
         continue;
       }

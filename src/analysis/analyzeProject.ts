@@ -13,7 +13,7 @@ import { AnalysisInput } from './AnalysisInput';
 
 export function analyzeProject(input: AnalysisInput): ProjectContext {
   // ── Scan files ────────────────────────────────────────────────
-  const scanner = new FileScanner(input.rootPath, input.limits);
+  const scanner = new FileScanner(input.rootPath, input.limits, input.ignoreDirs ?? []);
   const files = scanner.scan();
 
   // ── Phase 1: file analyzers ───────────────────────────────────
